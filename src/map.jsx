@@ -3,16 +3,39 @@ import React from "react";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 
 export default class Map extends React.Component {
+  constructor() {
+    super();
+    this.loadPlaces = this.loadPlaces.bind(this);
+  }
   componentDidMount() {
-    //   window.process.env = process.env;
+    
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/fishshiz/cjgwp824200002rns7w5309xm"
     });
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props !== nextProps;
+  }
+
   componentWillUnmount() {
     this.map.remove();
+  }
+
+  componentDidUpdate() {
+    this.loadPlaces();
+  }
+
+  loadPlaces() {
+    this.props.places.forEach(place => {
+      const [longitude, latitude] = [parseFloat(place.longitude), parseFloat(place.latitude)];
+      var el = document.createElement("div");
+      el.className = "marker";
+      new mapboxgl.Marker()
+        .setLngLat([longitude, latitude])
+        .addTo(this.map);        
+    });
   }
 
   render() {
