@@ -28,8 +28,9 @@ export default class Map extends React.Component {
   }
 
   loadPlaces() {
-    this.props.places.forEach(place => {
-      const [longitude, latitude] = [parseFloat(place.longitude), parseFloat(place.latitude)];
+    this.props.venues.forEach(place => {
+      const location = place._embedded.venues[0].location;
+      const [longitude, latitude] = [parseFloat(location.longitude), parseFloat(location.latitude)];
       var el = document.createElement("div");
       el.className = "marker";
       new mapboxgl.Marker()
