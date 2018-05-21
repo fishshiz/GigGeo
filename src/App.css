@@ -375,3 +375,10 @@ focus {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
 }
+
+button:focus {
+    outline: none;
+}
+input:focus {
+    outline: none;
+}
