@@ -1,16 +1,53 @@
 import React, { Component } from "react";
+import Flatpickr from "react-flatpickr";
+import moment from "moment";
+
+require("flatpickr/dist/themes/airbnb.css");
 
 export default class Search extends Component {
   constructor() {
     super();
     this.state = {
+      artistSearch: true,
       query: "",
-      date: ""
+      date: new Date()
     };
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHover = this.handleHover.bind(this);
     this.handleOut = this.handleOut.bind(this);
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle(e) {
+    let item = e.target;
+    if ([...e.target.classList].includes("fa-headphones")) {
+      item = document.querySelector(".artist__toggle");
+    } else if ([...e.target.classList].includes("fa-building")) {
+      item = document.querySelector(".city__toggle");
+    }
+    let other;
+    let toggler = document.querySelector(".toggle");
+    if (
+      this.state.artistSearch &&
+      [...item.classList].includes("city__toggle")
+    ) {
+      other = document.querySelector(".artist__toggle");
+      other.classList.remove("selected");
+      item.classList.add("selected");
+      toggler.classList.remove("moveIn");
+      this.setState({ artistSearch: false });
+    } else if (
+      !this.state.artistSearch &&
+      [...item.classList].includes("artist__toggle")
+    ) {
+      
+      toggler.classList.add("moveIn");
+      other = document.querySelector(".city__toggle");
+      other.classList.remove("selected");
+      item.classList.add("selected");
+      this.setState({ artistSearch: true });
+    }
   }
 
   handleHover(e) {
@@ -37,21 +74,43 @@ export default class Search extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state.query);
-    this.props.searchArtist(this.state.query);
+    let d = moment(this.state.date[0]).format("YYYY-MM-DD");
+    if (this.state.artistSearch) {
+      this.props.searchArtist(this.state.query);
+    } else {
+      this.props.searchCities(this.state.query, d);
+    }
   }
 
   render() {
-    const { query, date } = this.state;
-
+    const { query, date, artistSearch } = this.state;
+    let calendar;
+    if (!artistSearch) {
+      calendar = (
+        <div className="calendar__wrapper animated fadeInDown">
+          <Flatpickr
+            value={date}
+            onChange={date => {
+              this.setState({ date });
+            }}
+          />
+        </div>
+      );
+    } else {
+      calendar = (
+        <div className="calendar__wrapper removed">
+          <Flatpickr
+            value={date}
+            onChange={date => {
+              this.setState({ date });
+            }}
+          />
+        </div>
+      );
+    }
     return (
       <div className="search__wrapper">
-        <form
-          className="search__form"
-          onSubmit={this.handleSubmit}
-          onMouseOut={this.handleOut}
-          onMouseOver={this.handleHover}
-        >
+        <form className="search__form" onSubmit={this.handleSubmit}>
           <div className="search__comp">
             <input
               onChange={this.handleUpdate("query")}
@@ -67,6 +126,15 @@ export default class Search extends Component {
             />
           </div>
         </form>
+        {calendar}
+        <div className="toggle">
+          <div onClick={this.toggle} className="artist__toggle selected">
+            <i className="fas fa-headphones" />
+          </div>
+          <div onClick={this.toggle} className="city__toggle">
+            <i className="fas fa-building" />
+          </div>
+        </div>
       </div>
     );
   }

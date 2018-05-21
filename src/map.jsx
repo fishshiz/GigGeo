@@ -41,24 +41,18 @@ export default class Map extends React.Component {
 
   parseTime(date, specifiedTime) {
     let d;
-    console.log(date);
-      d = {
-        date: moment(date).calendar(null, {
-          sameDay: "[Today]",
-          nextDay: "[Tomorrow]",
-          nextWeek: "dddd",
-          lastDay: "[Yesterday]",
-          lastWeek: "[Last] dddd",
+      d = { date: moment(date).calendar(null, {
+        sameDay: "DD/MM/YYYY h:mm a",
+        nextDay: "DD/MM/YYYY h:mm a",
+        nextWeek: "DD/MM/YYYY h:mm a",
+        lastDay: "DD/MM/YYYY h:mm a",
+          lastWeek: "DD/MM/YYYY h:mm a",
           sameElse: "DD/MM/YYYY h:mm a"
-        }),
-        month: moment(date).format("MMM"),
-        time: moment(date).format("h:mm a")
-      };
-      console.log(date);
+        }), month: moment(date).format("MMM"), time: moment(date).format("h:mm a") };
       if (specifiedTime) {
         d.day = date.slice(8, 10);
       } else {
-        d.day = 3;
+        d.day = d.date.slice(0, 2);
       }
   
     return d;
@@ -69,12 +63,15 @@ export default class Map extends React.Component {
     this.state.markers.forEach(m => m.remove());
     let that = this;
     this.props.venues.forEach(place => {
-      console.log(place);
       const venue = place._embedded.venues[0];
       let time;
-      const localDate = place.dates.start.dateTime;
-
-      if (!place.dates.start.noSpecificTime) {
+      let localDate;
+      if (place.dates.start.dateTime) {
+      localDate = place.dates.start.dateTime;
+      } else {
+        localDate = place.dates.start.localDate;
+      }
+      if (!place.dates.start.noSpecificTime && !place.dates.start.dateTime) {
         time = that.parseTime(localDate, true);
       } else {
          time = that.parseTime(localDate, false);
