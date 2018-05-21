@@ -55,13 +55,15 @@ export default class Map extends React.Component {
         .setPopup(
           new mapboxgl.Popup({ offset: 25 }) // add popups
             .setHTML(
-              `<div><img class="tooltip__img" src="${image}"/><h2>` +
+              `<div class="popup"><img class="tooltip__img" src="${image}"/><div class="header__wrapper"><h2 class="popup__header">` +
                 place.name +
-                `</h2><p>` +
+                `</h2></div><div class="popup__content"><p class="popup__venue">` +
                 venue.name +
-                `</p><p>` +
-                venue.city.name + `, ` + venue.state.stateCode +
-                `</p></div>`
+                `</p><p class="popup__location">` +
+                venue.city.name +
+                `, ` +
+                venue.state.stateCode +
+                `</p></div></div>`
             )
         )
         .addTo(this.map);
