@@ -77,7 +77,7 @@ export default class Map extends React.Component {
         .setPopup(
           new mapboxgl.Popup({ offset: 25 }) // add popups
             .setHTML(
-              `<div class="popup"><img class="tooltip__img" src="${image}"/><div class="header__wrapper"><h2 class="popup__header">` +
+              `<div class="popup"><div class="info-image-holder"><img class="tooltip__img" src="${image}"/></div><div class="header__wrapper"><h2 class="popup__header">` +
                 place.name +
                 `</h2></div><div class="popup__content"><div class="datetime__wrapper"><div class="calendar">
                 <p class="popup__month">` +
