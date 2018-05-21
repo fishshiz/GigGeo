@@ -1,6 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import React from "react";
 import { compose } from "redux";
+import moment from "moment";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 
 export default class Map extends React.Component {
@@ -8,6 +9,7 @@ export default class Map extends React.Component {
     super();
     this.loadPlaces = this.loadPlaces.bind(this);
     this.getRandomInt = this.getRandomInt.bind(this);
+    this.parseTime = this.parseTime.bind(this);
   }
   componentDidMount() {
     this.map = new mapboxgl.Map({
@@ -34,10 +36,30 @@ export default class Map extends React.Component {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
 
+  parseTime(date) {
+    let d = {
+      date: moment(date).calendar(null, {
+        sameDay: "[Today]",
+        nextDay: "[Tomorrow]",
+        nextWeek: "dddd",
+        lastDay: "[Yesterday]",
+        lastWeek: "[Last] dddd",
+        sameElse: "DD/MM/YYYY h:mm a"
+      }),
+      month: moment(date).format("MMM"),
+      day: date.slice(8, 10),
+      time: moment(date).format("h:mm a")
+    };
+    return d;
+  }
+
   loadPlaces() {
     let coordinates = [];
+    let that = this;
     this.props.venues.forEach(place => {
       const venue = place._embedded.venues[0];
+      const localDate = place.dates.start.dateTime;
+      const time = that.parseTime(localDate);
       const location = venue.location;
       const image = venue.images
         ? venue.images[this.getRandomInt(0, venue.images.length)].url
@@ -63,7 +85,14 @@ export default class Map extends React.Component {
                 venue.city.name +
                 `, ` +
                 venue.state.stateCode +
-                `</p></div></div>`
+                `</p><div class="datetime__wrapper"><div class="calendar">
+                <p class="popup__month">` +
+                time.month +
+                `</p><p class="popup__day">` +
+                time.day +
+                `</p></div><p class="popup__time">` +
+                time.time +
+                `</p></div></div></div>`
             )
         )
         .addTo(this.map);

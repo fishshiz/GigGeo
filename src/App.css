@@ -26,9 +26,48 @@
 .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
   border-left-color: #dfd4ad;
 }
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+  border-bottom-color: #dfd4ad;
+}
 .mapboxgl-popup-content {
   padding: 0px;
   border-radius: 6px;
+}
+.calendar {
+  width: 25%;
+  background-color: #dfd4ad;
+  height: 25%;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+.popup__month {
+  margin-bottom: 3px;
+  margin-top: 0px;
+  background-color: #3e2f33;
+  text-align: center;
+  font-weight: 600;
+  color: #dfd4ad;
+}
+
+.popup__time {
+  padding-left: 20px;
+  font-size: 22px;
+  text-align: center;
+  font-weight: 600;
+  color: #3e2f33;
+}
+
+.datetime__wrapper {
+  display: flex;
+}
+
+.popup__day {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #3e2f33;
 }
 
 .popup__header {
@@ -59,4 +98,5 @@
   margin-top: 5px;
   color: #3e2f33;
   font-weight: 400;
+  margin-bottom: 5px;
 }
