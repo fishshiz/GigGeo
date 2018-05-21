@@ -28,6 +28,7 @@ export default class Search extends Component {
     }
     let other;
     let toggler = document.querySelector(".toggle");
+    let wrapper = document.querySelector(".search__wrapper");
     if (
       this.state.artistSearch &&
       [...item.classList].includes("city__toggle")
@@ -36,14 +37,15 @@ export default class Search extends Component {
       other.classList.remove("selected");
       item.classList.add("selected");
       toggler.classList.remove("moveIn");
-      toggler.classList.add("moveBack");
+      wrapper.classList.remove("shrink");
       this.setState({ artistSearch: false });
     } else if (
       !this.state.artistSearch &&
       [...item.classList].includes("artist__toggle")
     ) {
-      toggler.classList.remove("moveBack");
       toggler.classList.add("moveIn");
+
+      wrapper.classList.add("shrink");
       other = document.querySelector(".city__toggle");
       other.classList.remove("selected");
       item.classList.add("selected");
