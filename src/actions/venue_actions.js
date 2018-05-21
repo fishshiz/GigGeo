@@ -6,6 +6,12 @@ export const edSheeranTour = () => dispatch => {
         dispatch(receiveVenues(res))
     ));
 };
+export const searchArtist = artistName => dispatch => {
+    console.log(artistName);
+    TMUtil.searchArtist(artistName).then(res => (
+        dispatch(receiveVenues(res))
+    ));
+};
 
 
 export const receiveVenues = venues => ({

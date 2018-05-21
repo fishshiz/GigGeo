@@ -2,6 +2,7 @@ import { RECEIVE_VENUES } from "../actions/venue_actions";
 
 const venueReducer = (state = {}, action) => {
     Object.freeze(state);
+    console.log(action);
     let newState;
 
     switch (action.type) {

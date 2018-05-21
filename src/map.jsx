@@ -7,6 +7,9 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 export default class Map extends React.Component {
   constructor() {
     super();
+    this.state = {
+      markers: []
+    };
     this.loadPlaces = this.loadPlaces.bind(this);
     this.getRandomInt = this.getRandomInt.bind(this);
     this.parseTime = this.parseTime.bind(this);
@@ -36,30 +39,46 @@ export default class Map extends React.Component {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
 
-  parseTime(date) {
-    let d = {
-      date: moment(date).calendar(null, {
-        sameDay: "[Today]",
-        nextDay: "[Tomorrow]",
-        nextWeek: "dddd",
-        lastDay: "[Yesterday]",
-        lastWeek: "[Last] dddd",
-        sameElse: "DD/MM/YYYY h:mm a"
-      }),
-      month: moment(date).format("MMM"),
-      day: date.slice(8, 10),
-      time: moment(date).format("h:mm a")
-    };
+  parseTime(date, specifiedTime) {
+    let d;
+    console.log(date);
+      d = {
+        date: moment(date).calendar(null, {
+          sameDay: "[Today]",
+          nextDay: "[Tomorrow]",
+          nextWeek: "dddd",
+          lastDay: "[Yesterday]",
+          lastWeek: "[Last] dddd",
+          sameElse: "DD/MM/YYYY h:mm a"
+        }),
+        month: moment(date).format("MMM"),
+        time: moment(date).format("h:mm a")
+      };
+      console.log(date);
+      if (specifiedTime) {
+        d.day = date.slice(8, 10);
+      } else {
+        d.day = 3;
+      }
+  
     return d;
   }
 
   loadPlaces() {
     let coordinates = [];
+    this.state.markers.forEach(m => m.remove());
     let that = this;
     this.props.venues.forEach(place => {
+      console.log(place);
       const venue = place._embedded.venues[0];
+      let time;
       const localDate = place.dates.start.dateTime;
-      const time = that.parseTime(localDate);
+
+      if (!place.dates.start.noSpecificTime) {
+        time = that.parseTime(localDate, true);
+      } else {
+         time = that.parseTime(localDate, false);
+      }
       const location = venue.location;
       const image = venue.images
         ? venue.images[this.getRandomInt(0, venue.images.length)].url
@@ -72,7 +91,7 @@ export default class Map extends React.Component {
       coordinates.push([longitude, latitude]);
       var el = document.createElement("div");
       el.className = "marker";
-      new mapboxgl.Marker()
+      let marker = new mapboxgl.Marker()
         .setLngLat([longitude, latitude])
         .setPopup(
           new mapboxgl.Popup({ offset: 25 }) // add popups
@@ -96,7 +115,9 @@ export default class Map extends React.Component {
             )
         )
         .addTo(this.map);
-    });
+        this.state.markers.push(marker);
+    }
+  );
     let bounds = coordinates.reduce(function(bounds, coord) {
       return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
