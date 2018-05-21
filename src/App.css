@@ -3,11 +3,10 @@
 }
 
 .popup {
-  border: 6px solid #dfd4ad;
+  border: 6px solid #4e6565;
   width: 220px;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
 }
 
 .header__wrapper {
@@ -15,19 +14,19 @@
 }
 
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
-  border-bottom-color: #dfd4ad;
+  border-bottom-color: #4e6565;
 }
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-  border-top-color: #dfd4ad;
+  border-top-color: #4e6565;
 }
 .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
-  border-right-color: #dfd4ad;
+  border-right-color: #4e6565;
 }
 .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
-  border-left-color: #dfd4ad;
+  border-left-color: #4e6565;
 }
 .mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
-  border-bottom-color: #dfd4ad;
+  border-bottom-color: #4e6565;
 }
 .mapboxgl-popup-content {
   padding: 0px;
@@ -35,10 +34,11 @@
 }
 .calendar {
   width: 25%;
-  background-color: #dfd4ad;
   height: 25%;
   margin-bottom: 5px;
   margin-left: 5px;
+  margin-top: 5px;
+  border: 2px solid #3e2f33;
 }
 .popup__month {
   margin-bottom: 3px;
@@ -46,27 +46,41 @@
   background-color: #3e2f33;
   text-align: center;
   font-weight: 600;
-  color: #dfd4ad;
+  color: #ba4151;
+}
+
+.popup__info {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-right: 15px;
 }
 
 .popup__time {
-  padding-left: 20px;
-  font-size: 22px;
+  font-size: 14px;
   text-align: center;
   font-weight: 600;
   color: #3e2f33;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .datetime__wrapper {
   display: flex;
+  justify-content: space-around;
+  border-bottom: 5px solid #d67380;
+  border-top: 3px solid #868581;
 }
 
 .popup__day {
   text-align: center;
   font-size: 30px;
   font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 9px;
+  margin-bottom: 9px;
   color: #3e2f33;
 }
 
@@ -81,22 +95,22 @@
 }
 
 .popup__content {
-  background-color: #dad9d0;
+  background-color: #ba4151;
 }
 
 .popup__venue {
-  margin-top: 5px;
+  margin-top: 3px;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   color: #3e2f33;
 }
 
 .popup__location {
   text-align: center;
-  margin-top: 5px;
+  margin-top: 0px;
   color: #3e2f33;
   font-weight: 400;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }

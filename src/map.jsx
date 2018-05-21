@@ -79,20 +79,20 @@ export default class Map extends React.Component {
             .setHTML(
               `<div class="popup"><img class="tooltip__img" src="${image}"/><div class="header__wrapper"><h2 class="popup__header">` +
                 place.name +
-                `</h2></div><div class="popup__content"><p class="popup__venue">` +
+                `</h2></div><div class="popup__content"><div class="datetime__wrapper"><div class="calendar">
+                <p class="popup__month">` +
+                time.month +
+                `</p><p class="popup__day">` +
+                time.day +
+                `</p></div><div class="popup__info"><p class="popup__venue">` +
                 venue.name +
                 `</p><p class="popup__location">` +
                 venue.city.name +
                 `, ` +
                 venue.state.stateCode +
-                `</p><div class="datetime__wrapper"><div class="calendar">
-                <p class="popup__month">` +
-                time.month +
-                `</p><p class="popup__day">` +
-                time.day +
-                `</p></div><p class="popup__time">` +
+                `</p><p class="popup__time">` +
                 time.time +
-                `</p></div></div></div>`
+                `</p></div></div></div></div>`
             )
         )
         .addTo(this.map);
