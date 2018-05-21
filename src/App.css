@@ -1,3 +1,62 @@
 .tooltip__img {
-    height: 100px;
+  width: 100%;
+}
+
+.popup {
+  border: 6px solid #dfd4ad;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+}
+
+.header__wrapper {
+  background-color: #dfd4ad;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+  border-bottom-color: #dfd4ad;
+}
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: #dfd4ad;
+}
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+  border-right-color: #dfd4ad;
+}
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-left-color: #dfd4ad;
+}
+.mapboxgl-popup-content {
+  padding: 0px;
+  border-radius: 6px;
+}
+
+.popup__header {
+  padding-left: 5px;
+  margin-top: 0px;
+  padding-right: 5px;
+  margin-bottom: 8px;
+  text-align: center;
+  color: #3e2f33;
+  margin-bottom: 5px;
+}
+
+.popup__content {
+  background-color: #dad9d0;
+}
+
+.popup__venue {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #3e2f33;
+}
+
+.popup__location {
+  text-align: center;
+  margin-top: 5px;
+  color: #3e2f33;
+  font-weight: 400;
 }
