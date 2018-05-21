@@ -1,32 +1,75 @@
+.mapboxgl-map {
+  z-index: -1;
+}
 .tooltip__img {
   width: 100%;
 }
 
+.search__wrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.search__form {
+  width: 40%;
+  background-color: #4e6565;
+  border-radius: 4px;
+  opacity: 0.4;
+}
+.hover {
+  opacity: 1;
+}
+
+.search__input {
+  width: 100%;
+  border-radius: 4px;
+  height: 70%;
+  border: 0;
+}
+
+.headerSearch__submit {
+  border: 0;
+  padding: 0;
+  background: url(https://a-v2.sndcdn.com/assets/images/header/search-dbfe5cb.svg)
+    0 0 no-repeat;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  top: -20px;
+  /* left: 0px; */
+  float: right;
+  margin-right: 3px;
+  /* top: -4px; */
+}
+
 .popup {
-  border: 6px solid #4e6565;
+  border: 6px solid #fff;
   width: 220px;
   display: flex;
   flex-direction: column;
+  border-radius: 4px;
 }
 
 .header__wrapper {
-  background-color: #dfd4ad;
+  background-color: #fff;
+  border-bottom: 1px solid #80808047;
 }
 
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
-  border-bottom-color: #4e6565;
+  border-bottom-color: #fff;
 }
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-  border-top-color: #4e6565;
+  border-top-color: #fff;
 }
 .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
-  border-right-color: #4e6565;
+  border-right-color: #fff;
 }
 .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
-  border-left-color: #4e6565;
+  border-left-color: #fff;
 }
 .mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
-  border-bottom-color: #4e6565;
+  border-bottom-color: #fff;
 }
 .mapboxgl-popup-content {
   padding: 0px;
@@ -38,15 +81,15 @@
   margin-bottom: 5px;
   margin-left: 5px;
   margin-top: 5px;
-  border: 2px solid #3e2f33;
+  border: 2px solid #9cb5bb;
 }
 .popup__month {
   margin-bottom: 3px;
   margin-top: 0px;
-  background-color: #3e2f33;
+  background-color: #3eb1cf;
   text-align: center;
   font-weight: 600;
-  color: #ba4151;
+  color: #fff;
 }
 
 .popup__info {
@@ -71,8 +114,6 @@
 .datetime__wrapper {
   display: flex;
   justify-content: space-around;
-  border-bottom: 5px solid #d67380;
-  border-top: 3px solid #868581;
 }
 
 .popup__day {
@@ -81,25 +122,41 @@
   font-weight: bold;
   margin-top: 9px;
   margin-bottom: 9px;
-  color: #3e2f33;
+  color: #202020;
 }
 
 .popup__header {
   padding-left: 5px;
-  margin-top: 0px;
+  margin-top: 5px;
   padding-right: 5px;
   margin-bottom: 8px;
   text-align: center;
   color: #3e2f33;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.info-image-holder {
+  width: 220px;
+  height: 160px;
+}
+
+.info-image-holder > img {
+  display: block;
+  justify-self: center;
+  position: absolute;
+  display: block;
+  object-fit: cover;
+  height: 160px;
+  width: 220px;
 }
 
 .popup__content {
-  background-color: #ba4151;
+  background-color: #fff;
+  margin-top: 5px;
 }
 
 .popup__venue {
-  margin-top: 3px;
+  margin-top: 0px;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -113,4 +170,41 @@
   color: #3e2f33;
   font-weight: 400;
   margin-bottom: 0px;
+}
+
+/* Removes the clear button from date inputs */
+input[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: #2c3e50;
+}
+
+/* A few custom styles for date inputs */
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  color: #95a5a6;
+  font-family: "Helvetica", arial, sans-serif;
+  font-size: 18px;
+  border: 1px solid #ecf0f1;
+  background: #ecf0f1;
+  padding: 5px;
+  display: inline-block !important;
+  visibility: visible !important;
+}
+
+input[type="date"],
+focus {
+  color: #95a5a6;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
 }
