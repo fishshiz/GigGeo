@@ -14,3 +14,9 @@ export const searchArtist = artistName =>
   ).then(res => {
     return res.json();
   });
+export const searchCities = (cityName, date) => 
+  fetch(
+    `https://app.ticketmaster.com/discovery/v2/events?apikey=${key}&startDateTime=${date}T00:00:01Z&endDateTime=${date}T23:59:00Z&city=${cityName}&countryCode=US`
+  ).then(res => {
+    return res.json();
+  });
