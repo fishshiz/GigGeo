@@ -29,16 +29,22 @@
 }
 .search__comp {
   height: 80%;
-  align-self: center;
-  text-align: center;
   width: 100%;
+  padding-top: 4px;
   padding-left: 7px;
-  padding-right: 7px;
+  padding-right: 20px;
+}
+
+.toggle__text {
+  font-size: 8px;
+  font-weight: 600;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .search__form {
   width: 40%;
-  height: 48px;
+  height: 53px;
   background-color: #4e6565;
   border: 2px solid #4e6565;
   border-bottom: none;
@@ -59,6 +65,8 @@ i {
   border-radius: 4px;
   height: 80%;
   border: 0;
+  padding-left: 5px;
+  font-size: 20px;
 }
 
 .headerSearch__submit {
@@ -69,11 +77,13 @@ i {
   width: 15px;
   height: 15px;
   position: relative;
-  top: -23px;
-  /* left: 0px; */
+  top: -24px;
   float: right;
   margin-right: 3px;
-  /* top: -4px; */
+}
+
+.fas {
+  padding-top: 2px;
 }
 
 .calendar__wrapper {
@@ -132,11 +142,13 @@ i {
 }
 
 .toggle {
-  width: 80px;
-  height: 40px;
+  width: 90px;
+  height: 45px;
   background-color: #c74129;
   display: flex;
   border: 5px solid #4e6565;
+  border-right: 7px solid #4e6565;
+  border-left: 7px solid #4e6565;
 }
 
 .selected {
@@ -148,13 +160,11 @@ i {
 .artist__toggle,
 .city__toggle {
   width: 50%;
-  display: -ms-flexbox;
   display: flex;
   height: 100%;
-  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-pack: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .removed {
@@ -208,8 +218,8 @@ i {
   }
 
   100% {
-    -webkit-transform: translateX(-180%);
-    transform: translateX(-180%);
+    -webkit-transform: translateX(-160%);
+    transform: translateX(-160%);
   }
 }
 
@@ -220,32 +230,32 @@ i {
   }
 
   100% {
-    -webkit-transform: translateX(-180%);
-    transform: translateX(-180%);
+    -webkit-transform: translateX(-160%);
+    transform: translateX(-160%);
   }
 }
 
 @-webkit-keyframes moveBack {
-  50% {
-    -webkit-transform: translateX(-5%);
-    transform: translateX(-5%);
+ 0% {
+    -webkit-transform: translateX(-160%);
+    transform: translateX(-160%);
   }
 
   100% {
-    -webkit-transform: translateX(180%);
-    transform: translateX(180%);
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
   }
 }
 
 @keyframes moveBack {
-  50% {
-    -webkit-transform: translateX(-5%);
-    transform: translateX(-5%);
+0% {
+    -webkit-transform: translateX(-160%);
+    transform: translateX(-160%);
   }
 
   100% {
-    -webkit-transform: translateX(180%);
-    transform: translateX(180%);
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
   }
 }
 
