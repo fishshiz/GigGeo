@@ -8,7 +8,7 @@ export default class Search extends Component {
   constructor() {
     super();
     this.state = {
-      artistSearch: true,
+      artistSearch: false,
       query: "",
       date: new Date()
     };
@@ -36,12 +36,13 @@ export default class Search extends Component {
       other.classList.remove("selected");
       item.classList.add("selected");
       toggler.classList.remove("moveIn");
+      toggler.classList.add("moveBack");
       this.setState({ artistSearch: false });
     } else if (
       !this.state.artistSearch &&
       [...item.classList].includes("artist__toggle")
     ) {
-      
+      toggler.classList.remove("moveBack");
       toggler.classList.add("moveIn");
       other = document.querySelector(".city__toggle");
       other.classList.remove("selected");
@@ -116,7 +117,7 @@ export default class Search extends Component {
               onChange={this.handleUpdate("query")}
               value={query}
               type="text"
-              placeholder="Search"
+              placeholder="Search for an artist or a city"
               className="search__input"
             />
 
@@ -128,11 +129,13 @@ export default class Search extends Component {
         </form>
         {calendar}
         <div className="toggle">
-          <div onClick={this.toggle} className="artist__toggle selected">
+          <div onClick={this.toggle} className="artist__toggle">
             <i className="fas fa-headphones" />
+            <p className="toggle__text">Artist</p>
           </div>
-          <div onClick={this.toggle} className="city__toggle">
+          <div onClick={this.toggle} className="city__toggle selected">
             <i className="fas fa-building" />
+            <p className="toggle__text">City</p>
           </div>
         </div>
       </div>
