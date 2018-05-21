@@ -86,7 +86,9 @@ export default class Search extends Component {
   render() {
     const { query, date, artistSearch } = this.state;
     let calendar;
+    let placeholder;
     if (!artistSearch) {
+      placeholder=" city";
       calendar = (
         <div className="calendar__wrapper animated fadeInDown">
           <Flatpickr
@@ -98,6 +100,7 @@ export default class Search extends Component {
         </div>
       );
     } else {
+      placeholder = "n artist";
       calendar = (
         <div className="calendar__wrapper removed">
           <Flatpickr
@@ -117,7 +120,7 @@ export default class Search extends Component {
               onChange={this.handleUpdate("query")}
               value={query}
               type="text"
-              placeholder="Search for an artist or a city"
+              placeholder={`Search for a${placeholder}`}
               className="search__input"
             />
 
