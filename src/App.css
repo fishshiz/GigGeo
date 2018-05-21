@@ -24,8 +24,11 @@
 
 .search__wrapper {
   display: flex;
+  position: absolute;
+  width: 55%;
+  top: 40px;
+  right: 20%;
   justify-content: center;
-  padding-top: 40px;
 }
 .search__comp {
   height: 80%;
@@ -43,12 +46,11 @@
 }
 
 .search__form {
-  width: 40%;
+  width: 70%;
   height: 53px;
   background-color: #4e6565;
   border: 2px solid #4e6565;
   border-bottom: none;
-  /* border-radius: 4px; */
   display: flex;
   justify-content: center;
   align-items: center;
