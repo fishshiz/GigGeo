@@ -28,23 +28,25 @@ export default class Search extends Component {
     }
     let other;
     let toggler = document.querySelector(".toggle");
+    let wrapper = document.querySelector(".search__wrapper");
+    let shell = document.querySelector(".toggle__calendar");
     if (
       this.state.artistSearch &&
       [...item.classList].includes("city__toggle")
     ) {
       other = document.querySelector(".artist__toggle");
       other.classList.remove("selected");
+      shell.classList.add("moveIn");
+      shell.classList.remove("moveBack");
       item.classList.add("selected");
-      toggler.classList.remove("moveIn");
-      toggler.classList.add("moveBack");
       this.setState({ artistSearch: false });
     } else if (
       !this.state.artistSearch &&
       [...item.classList].includes("artist__toggle")
     ) {
-      toggler.classList.remove("moveBack");
-      toggler.classList.add("moveIn");
       other = document.querySelector(".city__toggle");
+      shell.classList.remove("moveIn");
+      shell.classList.add("moveBack");
       other.classList.remove("selected");
       item.classList.add("selected");
       this.setState({ artistSearch: true });
@@ -85,32 +87,21 @@ export default class Search extends Component {
 
   render() {
     const { query, date, artistSearch } = this.state;
-    let calendar;
+    let calendar = (calendar = (
+      <div className="calendar__wrapper">
+        <Flatpickr
+          value={date}
+          onChange={date => {
+            this.setState({ date });
+          }}
+        />
+      </div>
+    ));
     let placeholder;
     if (!artistSearch) {
-      placeholder=" city";
-      calendar = (
-        <div className="calendar__wrapper animated fadeInDown">
-          <Flatpickr
-            value={date}
-            onChange={date => {
-              this.setState({ date });
-            }}
-          />
-        </div>
-      );
+      placeholder = " city";
     } else {
       placeholder = "n artist";
-      calendar = (
-        <div className="calendar__wrapper removed">
-          <Flatpickr
-            value={date}
-            onChange={date => {
-              this.setState({ date });
-            }}
-          />
-        </div>
-      );
     }
     return (
       <div className="search__wrapper">
@@ -130,15 +121,17 @@ export default class Search extends Component {
             />
           </div>
         </form>
-        {calendar}
-        <div className="toggle">
-          <div onClick={this.toggle} className="artist__toggle">
-            <i className="fas fa-headphones" />
-            <p className="toggle__text">Artist</p>
-          </div>
-          <div onClick={this.toggle} className="city__toggle selected">
-            <i className="fas fa-building" />
-            <p className="toggle__text">City</p>
+        <div className="toggle__calendar">
+          {calendar}
+          <div className="toggle">
+            <div onClick={this.toggle} className="artist__toggle">
+              <i className="fas fa-headphones" />
+              <p className="toggle__text">Artist</p>
+            </div>
+            <div onClick={this.toggle} className="city__toggle selected">
+              <i className="fas fa-building" />
+              <p className="toggle__text">City</p>
+            </div>
           </div>
         </div>
       </div>
