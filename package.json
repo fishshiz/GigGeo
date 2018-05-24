@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^2.2.0",
+    "@mapbox/react-geocoder": "^2.5.0",
     "flatpickr": "^4.5.0",
     "mapbox-gl": "^0.45.0",
     "moment": "^2.22.1",

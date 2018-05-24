@@ -2,6 +2,7 @@ import mapboxgl from "mapbox-gl";
 import React from "react";
 import { compose } from "redux";
 import moment from "moment";
+
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 
 export default class Map extends React.Component {
@@ -41,20 +42,24 @@ export default class Map extends React.Component {
 
   parseTime(date, specifiedTime) {
     let d;
-      d = { date: moment(date).calendar(null, {
+    d = {
+      date: moment(date).calendar(null, {
         sameDay: "DD/MM/YYYY h:mm a",
         nextDay: "DD/MM/YYYY h:mm a",
         nextWeek: "DD/MM/YYYY h:mm a",
         lastDay: "DD/MM/YYYY h:mm a",
-          lastWeek: "DD/MM/YYYY h:mm a",
-          sameElse: "DD/MM/YYYY h:mm a"
-        }), month: moment(date).format("MMM"), time: moment(date).format("h:mm a") };
-      if (specifiedTime) {
-        d.day = date.slice(8, 10);
-      } else {
-        d.day = d.date.slice(0, 2);
-      }
-  
+        lastWeek: "DD/MM/YYYY h:mm a",
+        sameElse: "DD/MM/YYYY h:mm a"
+      }),
+      month: moment(date).format("MMM"),
+      time: moment(date).format("h:mm a")
+    };
+    if (specifiedTime) {
+      d.day = date.slice(8, 10);
+    } else {
+      d.day = d.date.slice(0, 2);
+    }
+
     return d;
   }
 
@@ -67,14 +72,14 @@ export default class Map extends React.Component {
       let time;
       let localDate;
       if (place.dates.start.dateTime) {
-      localDate = place.dates.start.dateTime;
+        localDate = place.dates.start.dateTime;
       } else {
         localDate = place.dates.start.localDate;
       }
       if (!place.dates.start.noSpecificTime && !place.dates.start.dateTime) {
         time = that.parseTime(localDate, true);
       } else {
-         time = that.parseTime(localDate, false);
+        time = that.parseTime(localDate, false);
       }
       const location = venue.location;
       const image = venue.images
@@ -112,9 +117,9 @@ export default class Map extends React.Component {
             )
         )
         .addTo(this.map);
-        this.state.markers.push(marker);
-    }
-  );
+      this.state.markers.push(marker);
+    });
+
     let bounds = coordinates.reduce(function(bounds, coord) {
       return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));

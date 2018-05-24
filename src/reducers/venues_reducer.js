@@ -6,7 +6,11 @@ const venueReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_VENUES:
-            return action.venues._embedded.events;
+            if (action.venues._embedded) {
+                return action.venues._embedded.events;
+            } else {
+                return state;
+            }
         default:
         return state;
     }
