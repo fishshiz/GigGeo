@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Flatpickr from "react-flatpickr";
 import moment from "moment";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import DropdownContainer from "./dropdown_container";
 
 require("flatpickr/dist/themes/airbnb.css");
 
@@ -9,9 +11,9 @@ export default class Search extends Component {
     super();
     this.state = {
       artistSearch: false,
-      query: "",
       date: new Date()
     };
+
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHover = this.handleHover.bind(this);
@@ -36,8 +38,8 @@ export default class Search extends Component {
     ) {
       other = document.querySelector(".artist__toggle");
       other.classList.remove("selected");
-      shell.classList.add("moveIn");
-      shell.classList.remove("moveBack");
+      shell.classList.remove("moveIn");
+      shell.classList.add("moveBack");
       item.classList.add("selected");
       this.setState({ artistSearch: false });
     } else if (
@@ -45,8 +47,8 @@ export default class Search extends Component {
       [...item.classList].includes("artist__toggle")
     ) {
       other = document.querySelector(".city__toggle");
-      shell.classList.remove("moveIn");
-      shell.classList.add("moveBack");
+      shell.classList.add("moveIn");
+      shell.classList.remove("moveBack");
       other.classList.remove("selected");
       item.classList.add("selected");
       this.setState({ artistSearch: true });
@@ -65,14 +67,18 @@ export default class Search extends Component {
   }
 
   componentDidMount() {
-    // this.props.edSheeranTour();
+    this.props.changeDate(this.state.date);
   }
 
   handleUpdate(property) {
-    return e =>
-      this.setState({
+    let that = this;
+    return e => {
+      that.props.geocoder(e.target.value);
+      that.props.searchText(e.target.value);
+      that.setState({
         [property]: e.target.value
       });
+    };
   }
 
   handleSubmit(e) {
@@ -80,46 +86,44 @@ export default class Search extends Component {
     let d = moment(this.state.date[0]).format("YYYY-MM-DD");
     if (this.state.artistSearch) {
       this.props.searchArtist(this.state.query);
+
     } else {
       this.props.searchCities(this.state.query, d);
+      this.props.clearResults();
     }
+    this.props.searchText("");
   }
 
   render() {
-    const { query, date, artistSearch } = this.state;
-    let calendar = (calendar = (
+    const { date, artistSearch } = this.state;
+    let calendar = (
       <div className="calendar__wrapper">
         <Flatpickr
           value={date}
           onChange={date => {
+            this.props.changeDate(date);
             this.setState({ date });
           }}
         />
       </div>
-    ));
-    let placeholder;
+    );
+    let placeholder, dropdown;
     if (!artistSearch) {
       placeholder = " city";
+      dropdown = (<DropdownContainer />);
     } else {
       placeholder = "n artist";
+      dropdown = null;
     }
-    return (
-      <div className="search__wrapper">
+
+    return <div className="search__wrapper">
         <form className="search__form" onSubmit={this.handleSubmit}>
           <div className="search__comp">
-            <input
-              onChange={this.handleUpdate("query")}
-              value={query}
-              type="text"
-              placeholder={`Search for a${placeholder}`}
-              className="search__input"
-            />
+            <input onChange={this.handleUpdate("query")} value={this.props.text} type="text" placeholder={`Search for a${placeholder}`} className="search__input" />
 
-            <button
-              className="headerSearch__submit submit sc-ir"
-              type="submit"
-            />
+            <button className="headerSearch__submit submit sc-ir" type="submit" />
           </div>
+          {dropdown}
         </form>
         <div className="toggle__calendar">
           {calendar}
@@ -134,7 +138,6 @@ export default class Search extends Component {
             </div>
           </div>
         </div>
-      </div>
-    );
+      </div>;
   }
 }

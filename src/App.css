@@ -173,12 +173,10 @@ i {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  
-  
 }
 .artist__toggle:not(.selected),
 .city__toggle:not(.selected) {
-background-color: #c74129;
+  background-color: #c74129;
 }
 
 .removed {
@@ -216,8 +214,7 @@ background-color: #c74129;
 }
 
 @-webkit-keyframes disapear {
- 
-0% {
+  0% {
     -webkit-transform: translateX(350%);
     transform: translateX(350%);
   }
@@ -228,8 +225,7 @@ background-color: #c74129;
 }
 
 @keyframes disapear {
-  
- 0% {
+  0% {
     -webkit-transform: translateX(350%);
     transform: translateX(350%);
   }
@@ -240,8 +236,6 @@ background-color: #c74129;
 }
 
 @-webkit-keyframes moveIn {
-
-
   100% {
     -webkit-transform: translateX(-60%);
     transform: translateX(-60%);
@@ -249,15 +243,13 @@ background-color: #c74129;
 }
 
 @keyframes moveIn {
- 
-
   100% {
     -webkit-transform: translateX(-60%);
     transform: translateX(-60%);
   }
 }
 @-webkit-keyframes moveBack {
-0% {
+  0% {
     -webkit-transform: translateX(-60%);
     transform: translateX(-60%);
   }
@@ -279,7 +271,6 @@ background-color: #c74129;
     transform: translateX(0%);
   }
 }
-
 
 @-webkit-keyframes shrink {
   5% {
@@ -427,4 +418,32 @@ button:focus {
 }
 input:focus {
   outline: none;
+}
+
+.dropdown__wrapper {
+  list-style: none;
+  position: absolute;
+  top: 52%;
+  width: 50%;
+  text-align: center;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0;
+  border-bottom: 2px solid #c74129;
+  border-right: 2px solid #c74129;
+  border-left: 2px solid #c74129;
+}
+
+.dropdown__item {
+  padding-top: 4px;
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  padding-bottom: 4px;
+  border-bottom: 1px dotted #2c3e506d;
+}
+
+.dropdown__item:hover {
+  color: #c74129;
 }
