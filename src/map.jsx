@@ -2,6 +2,7 @@ import mapboxgl from "mapbox-gl";
 import React from "react";
 import { compose } from "redux";
 import moment from "moment";
+import Rainbow from "rainbowvis.js";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 
@@ -14,6 +15,9 @@ export default class Map extends React.Component {
     this.loadPlaces = this.loadPlaces.bind(this);
     this.getRandomInt = this.getRandomInt.bind(this);
     this.parseTime = this.parseTime.bind(this);
+    this.generateRainbow = this.generateRainbow.bind(this);
+    this.generateColor = this.generateColor.bind(this);
+    this.orderByDate = this.orderByDate.bind(this);
   }
   componentDidMount() {
     this.map = new mapboxgl.Map({
@@ -63,11 +67,64 @@ export default class Map extends React.Component {
     return d;
   }
 
+  generateRainbow() {
+    let rainbow = new Rainbow();
+    rainbow.setNumberRange(0, this.props.venues.length);
+    rainbow.setSpectrum('red', 'green');
+    return rainbow;
+  }
+
+  generateColor(rainbow, place) {
+    const ordered = this.orderByDate();
+    let idx = ordered
+      .map(event => {
+        return event.id;
+      })
+      .indexOf(place.id);
+    return rainbow.colourAt(idx);
+  }
+
+  orderByDate() {
+    let venues = this.props.venues;
+    let output = [venues[0]];
+    for (let i = 1; i < this.props.venues.length; i++) {
+      let newDate = venues[i].dates.start.dateTime;
+      let comparisonDate = output[0].dates.start.dateTime;
+      if (new Date(newDate) < new Date(comparisonDate)) {
+        output.unshift(venues[i]);
+      } else if (
+        new Date(venues[i].dates.start.dateTime) >
+        new Date(output[output.length - 1].dates.start.dateTime)
+      ) {
+        output.push(venues[i]);
+      } else {
+        for (let j = 0; j < output.length; j++) {
+          if (
+            new Date(output[j].dates.start.dateTime) <
+              new Date(venues[i].dates.start.dateTime) &&
+            new Date(output[j + 1].dates.start.dateTime) >
+              new Date(venues[i].dates.start.dateTime)
+          ) {
+            output = output
+              .slice(0, j + 1)
+              .concat(venues[i])
+              .concat(output.slice(j + 1));
+            break;
+          }
+        }
+      }
+    }
+    return output;
+  }
+
   loadPlaces() {
     let coordinates = [];
     this.state.markers.forEach(m => m.remove());
     let that = this;
+    let rainbow = this.generateRainbow();
     this.props.venues.forEach(place => {
+      let color = this.generateColor(rainbow, place);
+      console.log(typeof color);
       const venue = place._embedded.venues[0];
       let time;
       let localDate;
@@ -93,7 +150,7 @@ export default class Map extends React.Component {
       coordinates.push([longitude, latitude]);
       var el = document.createElement("div");
       el.className = "marker";
-      let marker = new mapboxgl.Marker()
+      let marker = new mapboxgl.Marker({ color: `#${color}` })
         .setLngLat([longitude, latitude])
         .setPopup(
           new mapboxgl.Popup({ offset: 25 }) // add popups

@@ -8,6 +8,7 @@
     "flatpickr": "^4.5.0",
     "mapbox-gl": "^0.45.0",
     "moment": "^2.22.1",
+    "rainbowvis.js": "^1.0.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-flatpickr": "^3.6.4",
