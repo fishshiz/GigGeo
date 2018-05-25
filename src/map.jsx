@@ -44,7 +44,7 @@ export default class Map extends React.Component {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
 
-  parseTime(date, specifiedTime) {
+  parseTime(date) {
     let d;
     d = {
       date: moment(date).calendar(null, {
@@ -56,26 +56,20 @@ export default class Map extends React.Component {
         sameElse: "DD/MM/YYYY h:mm a"
       }),
       month: moment(date).format("MMM"),
-      time: moment(date).format("h:mm a")
+      time: moment(date).format("h:mm a"),
+      day: moment(date).format("DD")
     };
-    if (specifiedTime) {
-      d.day = date.slice(8, 10);
-    } else {
-      d.day = d.date.slice(0, 2);
-    }
-
     return d;
   }
 
   generateRainbow() {
     let rainbow = new Rainbow();
     rainbow.setNumberRange(0, this.props.venues.length);
-    rainbow.setSpectrum('red', 'green');
+    rainbow.setSpectrum("#85ff6d", "#c74129");
     return rainbow;
   }
 
-  generateColor(rainbow, place) {
-    const ordered = this.orderByDate();
+  generateColor(rainbow, place, ordered) {
     let idx = ordered
       .map(event => {
         return event.id;
@@ -87,8 +81,11 @@ export default class Map extends React.Component {
   orderByDate() {
     let venues = this.props.venues;
     let output = [venues[0]];
-    for (let i = 1; i < this.props.venues.length; i++) {
-      let newDate = venues[i].dates.start.dateTime;
+    for (let i = 1; i < venues.length; i++) {
+      let newDate = venues[i].dates.start.dateTime
+        ? venues[i].dates.start.dateTime
+        : venues[i].dates.start.localDate;
+
       let comparisonDate = output[0].dates.start.dateTime;
       if (new Date(newDate) < new Date(comparisonDate)) {
         output.unshift(venues[i]);
@@ -100,7 +97,7 @@ export default class Map extends React.Component {
       } else {
         for (let j = 0; j < output.length; j++) {
           if (
-            new Date(output[j].dates.start.dateTime) <
+            new Date(output[j].dates.start.dateTime) <=
               new Date(venues[i].dates.start.dateTime) &&
             new Date(output[j + 1].dates.start.dateTime) >
               new Date(venues[i].dates.start.dateTime)
@@ -122,21 +119,15 @@ export default class Map extends React.Component {
     this.state.markers.forEach(m => m.remove());
     let that = this;
     let rainbow = this.generateRainbow();
-    this.props.venues.forEach(place => {
-      let color = this.generateColor(rainbow, place);
-      console.log(typeof color);
-      const venue = place._embedded.venues[0];
+    const ordered = this.orderByDate();
+    ordered.forEach(place => {
+      let color = this.generateColor(rainbow, place, ordered);
+      let venue = place._embedded.venues[0];
       let time;
-      let localDate;
       if (place.dates.start.dateTime) {
-        localDate = place.dates.start.dateTime;
+        time = this.parseTime(new Date(place.dates.start.dateTime));
       } else {
-        localDate = place.dates.start.localDate;
-      }
-      if (!place.dates.start.noSpecificTime && !place.dates.start.dateTime) {
-        time = that.parseTime(localDate, true);
-      } else {
-        time = that.parseTime(localDate, false);
+        time = this.parseTime(new Date(place.dates.start.localDate));
       }
       const location = venue.location;
       const image = venue.images

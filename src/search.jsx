@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Flatpickr from "react-flatpickr";
 import moment from "moment";
-import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import DropdownContainer from "./dropdown_container";
 
 require("flatpickr/dist/themes/airbnb.css");
