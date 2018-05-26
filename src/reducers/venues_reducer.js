@@ -1,6 +1,6 @@
 import { RECEIVE_VENUES } from "../actions/venue_actions";
 
-const venueReducer = (state = {}, action) => {
+const venueReducer = (state = [], action) => {
     Object.freeze(state);
     let newState;
 

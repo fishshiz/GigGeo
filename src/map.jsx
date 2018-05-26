@@ -18,6 +18,8 @@ export default class Map extends React.Component {
     this.generateRainbow = this.generateRainbow.bind(this);
     this.generateColor = this.generateColor.bind(this);
     this.orderByDate = this.orderByDate.bind(this);
+    this.handleHover = this.handleHover.bind(this);
+    this.handleOut = this.handleOut.bind(this);
   }
   componentDidMount() {
     this.map = new mapboxgl.Map({
@@ -27,7 +29,7 @@ export default class Map extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props !== nextProps;
+    return this.props.venues !== nextProps.venues;
   }
 
   componentWillUnmount() {
@@ -35,7 +37,9 @@ export default class Map extends React.Component {
   }
 
   componentDidUpdate() {
-    this.loadPlaces();
+    if (this.props.venues.length > 0) {
+      this.loadPlaces();
+    }
   }
 
   getRandomInt(min, max) {
@@ -65,7 +69,7 @@ export default class Map extends React.Component {
   generateRainbow() {
     let rainbow = new Rainbow();
     rainbow.setNumberRange(0, this.props.venues.length);
-    rainbow.setSpectrum("#85ff6d", "#c74129");
+    rainbow.setSpectrum("#05F140", "#c74129");
     return rainbow;
   }
 
@@ -76,6 +80,19 @@ export default class Map extends React.Component {
       })
       .indexOf(place.id);
     return rainbow.colourAt(idx);
+  }
+
+  handleHover(e, marker, place) {
+    console.log(place);
+    console.log(e);
+    this.props.highlightMarker(place);
+    e.target.classList.add("highlighted");
+  }
+
+  handleOut(e, marker) {
+    console.log(marker);
+    e.target.classList.remove("highlighted");
+    this.props.removehighlightMarker();
   }
 
   orderByDate() {
@@ -119,21 +136,26 @@ export default class Map extends React.Component {
     this.state.markers.forEach(m => m.remove());
     let that = this;
     let rainbow = this.generateRainbow();
-    const ordered = this.orderByDate();
+    const ordered = this.props.artistSearch
+      ? this.orderByDate() : this.props.venues;
     ordered.forEach(place => {
-      let color = this.generateColor(rainbow, place, ordered);
+      let color = that.props.artistSearch
+        ? that.generateColor(rainbow, place, ordered)
+        : "c74129";
       let venue = place._embedded.venues[0];
       let time;
       if (place.dates.start.dateTime) {
-        time = this.parseTime(new Date(place.dates.start.dateTime));
+        time = that.parseTime(new Date(place.dates.start.dateTime));
       } else {
-        time = this.parseTime(new Date(place.dates.start.localDate));
+        time = that.parseTime(new Date(place.dates.start.localDate));
       }
       const location = venue.location;
       const image = venue.images
-        ? venue.images[this.getRandomInt(0, venue.images.length)].url
-        : place.images[this.getRandomInt(0, place.images.length)].url;
-
+        ? venue.images[that.getRandomInt(0, venue.images.length)].url
+        : place.images[that.getRandomInt(0, place.images.length)].url;
+      place.venue = venue;
+      place.time = time;
+      place.location = location;
       const [longitude, latitude] = [
         parseFloat(location.longitude),
         parseFloat(location.latitude)
@@ -164,8 +186,11 @@ export default class Map extends React.Component {
                 `</p></div></div></div></div>`
             )
         )
-        .addTo(this.map);
-      this.state.markers.push(marker);
+        .addTo(that.map);
+      that.state.markers.push(marker);
+      let m = marker;
+      marker.getElement().addEventListener("mouseenter", e => that.handleHover(e, marker, place));
+      marker.getElement().addEventListener("mouseleave", e => that.handleOut(e, marker));
     });
 
     let bounds = coordinates.reduce(function(bounds, coord) {
