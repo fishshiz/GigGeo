@@ -48,19 +48,11 @@ export default class Map extends React.Component {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
 
-  parseTime(date) {
+  parseTime(date, time) {
     let d;
     d = {
-      date: moment(date).calendar(null, {
-        sameDay: "DD/MM/YYYY h:mm a",
-        nextDay: "DD/MM/YYYY h:mm a",
-        nextWeek: "DD/MM/YYYY h:mm a",
-        lastDay: "DD/MM/YYYY h:mm a",
-        lastWeek: "DD/MM/YYYY h:mm a",
-        sameElse: "DD/MM/YYYY h:mm a"
-      }),
       month: moment(date).format("MMM"),
-      time: moment(date).format("h:mm a"),
+      time: moment(time, "HH:mm:ss").format("h:mm a"),
       day: moment(date).format("DD")
     };
     return d;
@@ -83,14 +75,11 @@ export default class Map extends React.Component {
   }
 
   handleHover(e, marker, place) {
-    console.log(place);
-    console.log(e);
     this.props.highlightMarker(place);
     e.target.classList.add("highlighted");
   }
 
   handleOut(e, marker) {
-    console.log(marker);
     e.target.classList.remove("highlighted");
     this.props.removehighlightMarker();
   }
@@ -103,13 +92,12 @@ export default class Map extends React.Component {
         ? venues[i].dates.start.dateTime
         : venues[i].dates.start.localDate;
 
-      let comparisonDate = output[0].dates.start.dateTime;
+      let comparisonDate = output[0].dates.start.dateTime
+        ? output[0].dates.start.dateTime
+        : output[0].dates.start.localDate;
       if (new Date(newDate) < new Date(comparisonDate)) {
         output.unshift(venues[i]);
-      } else if (
-        new Date(venues[i].dates.start.dateTime) >
-        new Date(output[output.length - 1].dates.start.dateTime)
-      ) {
+      } else if (new Date(newDate) > new Date(comparisonDate)) {
         output.push(venues[i]);
       } else {
         for (let j = 0; j < output.length; j++) {
@@ -137,18 +125,18 @@ export default class Map extends React.Component {
     let that = this;
     let rainbow = this.generateRainbow();
     const ordered = this.props.artistSearch
-      ? this.orderByDate() : this.props.venues;
+      ? this.orderByDate()
+      : this.props.venues;
     ordered.forEach(place => {
       let color = that.props.artistSearch
         ? that.generateColor(rainbow, place, ordered)
         : "c74129";
       let venue = place._embedded.venues[0];
-      let time;
-      if (place.dates.start.dateTime) {
-        time = that.parseTime(new Date(place.dates.start.dateTime));
-      } else {
-        time = that.parseTime(new Date(place.dates.start.localDate));
-      }
+      let time = that.parseTime(
+        new Date(new moment(place.dates.start.localDate)),
+        place.dates.start.localTime
+      );
+
       const location = venue.location;
       const image = venue.images
         ? venue.images[that.getRandomInt(0, venue.images.length)].url
@@ -183,14 +171,23 @@ export default class Map extends React.Component {
                 venue.state.stateCode +
                 `</p><p class="popup__time">` +
                 time.time +
-                `</p></div></div></div></div>`
+                `</p></div></div></div><a href=${
+                  place.url
+                } target="_blank" class="popup__buy">Find Tickets</a>
+                </div>`
             )
         )
         .addTo(that.map);
       that.state.markers.push(marker);
       let m = marker;
-      marker.getElement().addEventListener("mouseenter", e => that.handleHover(e, marker, place));
-      marker.getElement().addEventListener("mouseleave", e => that.handleOut(e, marker));
+      marker
+        .getElement()
+        .addEventListener("mouseenter", e =>
+          that.handleHover(e, marker, place)
+        );
+      marker
+        .getElement()
+        .addEventListener("mouseleave", e => that.handleOut(e, marker));
     });
 
     let bounds = coordinates.reduce(function(bounds, coord) {

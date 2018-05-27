@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   searchArtist: artistName => dispatch(searchArtist(artistName)),
-  searchCities: (cityName, date) => dispatch(searchCity(cityName, date)),
+  searchCities: (cityName, date, tomorrow) => dispatch(searchCity(cityName, date, tomorrow)),
   geocoder: query => dispatch(geocoderQuery(query)),
   changeDate: date => dispatch(changeDate(date)),
   searchText: text => dispatch(searchText(text)),

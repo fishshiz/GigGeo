@@ -13,13 +13,13 @@ export const searchArtist = artistName => dispatch => {
         dispatch(receiveVenues(res))
     ));
 };
-export const searchCity = (cityName, date) => dispatch => {
-    TMUtil.searchCities(cityName, date).then(res => (
+export const searchCity = (cityName, date, tomorrow) => dispatch => {
+    TMUtil.searchCities(cityName, date, tomorrow).then(res => (
       dispatch(receiveVenues(res))
     ));
 };
-export const searchCityState = (city, state, date) => dispatch => {
-    TMUtil.searchCitieState(city, state, date).then(res => (
+export const searchCityState = (city, state, date, tomorrow) => dispatch => {
+    TMUtil.searchCitieState(city, state, date, tomorrow).then(res => (
       dispatch(receiveVenues(res))
     ));
 };

@@ -14,9 +14,17 @@ export default class Dropdown extends React.Component {
   handleClick(e) {
     e.preventDefault();
     let d = moment(this.props.date[0]).format("YYYY-MM-DD");
+    let tomorrow = moment(d)
+      .add(1, "Days")
+      .format("YYYY-MM-DD");
     this.props.clearResults();
     this.props.searchResults("");
-    this.props.searchCities(e.target.dataset["city"], e.target.dataset["state"], d);
+    this.props.searchCities(
+      e.target.dataset["city"],
+      e.target.dataset["state"],
+      d,
+      tomorrow
+    );
   }
 
   render() {
@@ -24,7 +32,13 @@ export default class Dropdown extends React.Component {
       return (
         <ul className="dropdown__wrapper">
           {this.props.geocode.map(item => (
-            <li className="dropdown__item" key={item.id} onClick={this.handleClick} data-city={item.text} data-state={item.context[0].short_code.slice(3)}>
+            <li
+              className="dropdown__item"
+              key={item.id}
+              onClick={this.handleClick}
+              data-city={item.text}
+              data-state={item.context[0].short_code.slice(3)}
+            >
               {item.place_name}
             </li>
           ))}

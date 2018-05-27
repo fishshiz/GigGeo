@@ -458,13 +458,16 @@ input:focus {
   min-width: 25%;
   right: 5%;
   z-index: 5;
-  background-color: #2c3e50c1;
+  background-color: #9cb5bbd9;
   display: flex;
   border: 1px solid #4e6565;
   border-radius: 5px;
 }
 
-.selected__venue,
+
+.selected__venue {
+  color: #2c3e50;
+}
 .selected__header {
   color: #c74129;
 }
@@ -534,8 +537,8 @@ p {
   position: absolute;
   bottom: 5%;
   left: 5%;
-  background-color: #2c3e50c1;
-  color: #c74129;
+  background-color: #9cb5bbd9;
+  color: #2c3e50;
   border: 1px solid #4e6565;
   border-radius: 5px;
 }
@@ -575,7 +578,21 @@ p {
 
 .guide__p {
   margin-top: 0px;
-    margin-right: 8px;
+  margin-right: 8px;
   margin-left: 8px;
   margin-bottom: 4px;
+}
+
+.popup__buy {
+  color:#ecf0f1;
+  font-weight: 600;
+  background-color: #3eb1cf;
+  font-size: 15px;
+  text-decoration: none;
+  text-align: center;
+
+}
+
+.popup__buy:hover {
+  background-color: #c74129;
 }

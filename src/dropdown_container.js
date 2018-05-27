@@ -11,8 +11,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  searchCities: (city, state, date) =>
-    dispatch(searchCityState(city, state, date)),
+  searchCities: (city, state, date, tomorrow) =>
+    dispatch(searchCityState(city, state, date, tomorrow)),
     clearResults: () => dispatch(clearResults()),
     searchResults: text => dispatch(searchText(text))
 });

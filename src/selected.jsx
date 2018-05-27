@@ -9,7 +9,6 @@ export default class Selected extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.state.place);
     this.setState({ place: nextProps.place });
   }
 

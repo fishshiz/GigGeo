@@ -14,15 +14,15 @@ export const searchArtist = artistName =>
   ).then(res => {
     return res.json();
   });
-export const searchCities = (cityName, date) => 
+export const searchCities = (cityName, date, tomorrow) => 
   fetch(
-    `https://app.ticketmaster.com/discovery/v2/events?apikey=${key}&startDateTime=${date}T00:00:01Z&endDateTime=${date}T23:59:00Z&city=${cityName}&countryCode=US`
+    `https://app.ticketmaster.com/discovery/v2/events?apikey=${key}&startDateTime=${date}T00:00:01Z&endDateTime=${tomorrow}T00:00:00Z&city=${cityName}&countryCode=US`
   ).then(res => {
     return res.json();
   });
-export const searchCitieState = (city, state, date) => 
+export const searchCitieState = (city, state, date, tomorrow) => 
   fetch(
-    `https://app.ticketmaster.com/discovery/v2/events?apikey=${key}&startDateTime=${date}T00:00:01Z&endDateTime=${date}T23:59:00Z&city=${city}&state=${state}&countryCode=US`
+    `https://app.ticketmaster.com/discovery/v2/events?apikey=${key}&startDateTime=${date}T00:00:01Z&endDateTime=${tomorrow}T00:00:00Z&city=${city}&state=${state}&countryCode=US`
   ).then(res => {
     return res.json();
   });
