@@ -85,13 +85,11 @@ export default class Search extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state.date);
     let d = moment(this.state.date);
     d = moment(d).add(1, "days").format("YYYY-MM-DD");
     let tomorrow = moment(d)
       .add(1, "days")
       .format("YYYY-MM-DD");
-    console.log(d, tomorrow);
     if (this.state.artistSearch) {
       this.props.searchArtist(this.state.query);
     } else {
