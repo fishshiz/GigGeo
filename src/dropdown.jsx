@@ -13,12 +13,16 @@ export default class Dropdown extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    let d = moment(this.props.date[0]).format("YYYY-MM-DD");
+    let d = moment(this.props.date).format("YYYY-MM-DD");
+    d = moment(d)
+      .add(1, "days")
+      .format("YYYY-MM-DD");
     let tomorrow = moment(d)
-      .add(1, "Days")
+      .add(1, "days")
       .format("YYYY-MM-DD");
     this.props.clearResults();
     this.props.searchResults("");
+    console.log(e.target.dataset["state"]);
     this.props.searchCities(
       e.target.dataset["city"],
       e.target.dataset["state"],

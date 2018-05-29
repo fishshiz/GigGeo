@@ -194,7 +194,7 @@ export default class Map extends React.Component {
       return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
     this.map.fitBounds(bounds, {
-      padding: 40
+      padding: 80
     });
   }
 
