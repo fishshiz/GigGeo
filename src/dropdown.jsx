@@ -22,7 +22,6 @@ export default class Dropdown extends React.Component {
       .format("YYYY-MM-DD");
     this.props.clearResults();
     this.props.searchResults("");
-    console.log(e.target.dataset["state"]);
     this.props.searchCities(
       e.target.dataset["city"],
       e.target.dataset["state"],
