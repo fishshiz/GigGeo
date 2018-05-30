@@ -519,6 +519,7 @@ p {
   transition: opacity 400ms ease;
   position: absolute;
   opacity: 0;
+  z-index: -100;
 }
 
 @keyframes shrink {
