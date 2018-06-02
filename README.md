@@ -1,12 +1,12 @@
-## TunePlot 🗺
+## GigGeo 🗺
 
-What's going on tonight? That is the question that TunePlot seeks to answer. Users can search through different US cities by inputting different dates, or alternatively search for specific musical artist tours directly.
+What's going on tonight? That is the question that GigGeo seeks to answer. Users can search through different US cities by inputting different dates, or alternatively search for specific musical artist tours directly.
 
-You can check out the live site [here](https://tuneplot.herokuapp.com/).
+You can check out the live site [here](https://giggeo.herokuapp.com/).
 
 ### Technology Overview
 
-I built TunePlot over the span of a week. I used React (using the create-react-app to get started) for front-end rendering, Redux for state management, Mapbox GL JS for location lookup and mapping functionality, as well as the Ticketmaster Events API as the data source for all of my queried events. Additionally, I used the flatpickr.js library to serve as a calendar input, and RainbowVis-JS to help with color gradient rendering for artist search functionality.
+I built GigGeo over the span of a week. I used React (using the create-react-app to get started) for front-end rendering, Redux for state management, Mapbox GL JS for location lookup and mapping functionality, as well as the Ticketmaster Events API as the data source for all of my queried events. Additionally, I used the flatpickr.js library to serve as a calendar input, and RainbowVis-JS to help with color gradient rendering for artist search functionality.
 
 ### Artist Search Gradient Rendering
 

@@ -15,8 +15,6 @@ export default class Search extends Component {
 
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleHover = this.handleHover.bind(this);
-    this.handleOut = this.handleOut.bind(this);
     this.toggle = this.toggle.bind(this);
   }
 
@@ -54,17 +52,6 @@ export default class Search extends Component {
       this.props.toggleArtistSearch(true);
       this.setState({ artistSearch: true });
     }
-  }
-
-  handleHover(e) {
-    let target = e.target;
-
-    target.classList.add("hover");
-  }
-
-  handleOut(e) {
-    let target = e.target;
-    target.classList.remove("hover");
   }
 
   componentDidMount() {

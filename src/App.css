@@ -28,6 +28,16 @@
   width: 60%;
   top: 40px;
   left: 20%;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+  opacity: 0.65;
+  border-radius: 5px;
+}
+
+.search__wrapper:hover {
+  opacity: 1;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
 }
 .search__comp {
   height: 80%;
@@ -47,8 +57,8 @@
 .search__form {
   width: 660px;
   height: 53px;
-  background-color: #4e6565;
-  border: 2px solid #4e6565;
+  background-color: #95a5a6;
+  border: 2px solid #95a5a6;
   border-bottom: none;
   display: flex;
   justify-content: center;
@@ -92,7 +102,7 @@ i {
 .calendar__wrapper {
   display: flex;
   align-items: center;
-  background-color: #4e6565;
+  background-color: #95a5a6;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -150,9 +160,9 @@ i {
   width: 90px;
   height: 45px;
   display: flex;
-  border: 5px solid #4e6565;
-  border-right: 7px solid #4e6565;
-  border-left: 7px solid #4e6565;
+  border: 5px solid #95a5a6;
+  border-right: 7px solid #95a5a6;
+  border-left: 7px solid #95a5a6;
 }
 
 .selected {
