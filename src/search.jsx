@@ -15,6 +15,7 @@ export default class Search extends Component {
 
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
     this.toggle = this.toggle.bind(this);
   }
 
@@ -57,6 +58,10 @@ export default class Search extends Component {
   componentDidMount() {
     this.props.changeDate(this.state.date);
     this.props.toggleArtistSearch(false);
+  }
+
+  handleFocus(event) {
+    event.target.select();
   }
 
   handleUpdate(property) {
@@ -153,6 +158,7 @@ export default class Search extends Component {
           onChange={this.handleUpdate("query")}
           value={this.props.text}
           type="text"
+          onFocus={this.handleFocus}
           placeholder={`Search for a${placeholder}`}
           className="search__input pulsate"
         />

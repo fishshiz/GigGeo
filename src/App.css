@@ -113,6 +113,7 @@ i {
   display: flex;
   flex-direction: column;
   border-radius: 4px;
+  z-index: 10;
 }
 
 .header__wrapper {
@@ -496,6 +497,7 @@ input:focus {
   display: flex;
   border: 1px solid #4e6565;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .selected__venue {

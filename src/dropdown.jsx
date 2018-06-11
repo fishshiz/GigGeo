@@ -7,6 +7,7 @@ export default class Dropdown extends React.Component {
     this.state = { cursor: 0, result: [] };
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleMouse = this.handleMouse.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -39,6 +40,9 @@ export default class Dropdown extends React.Component {
       d,
       tomorrow
     );
+    this.props.searchResults(
+      e.target.dataset["city"] + ", " + e.target.dataset["state"]
+    );
   }
 
   handleEnter() {
@@ -56,7 +60,16 @@ export default class Dropdown extends React.Component {
       d,
       tomorrow
     );
-    this.props.clearResults();
+    this.props.searchResults(
+      selected.text + ", " + selected.context[0].short_code.slice(3)
+    );
+    // this.props.clearResults();
+  }
+
+  handleMouse(e) {
+    const { result, cursor } = this.state;
+    let obj = result.filter(i => i.place_name === e.target.innerText)[0];
+    this.setState({ cursor: result.indexOf(obj) });
   }
 
   handleKeyDown(e) {
@@ -90,6 +103,7 @@ export default class Dropdown extends React.Component {
               key={item.id}
               onClick={this.handleClick}
               data-city={item.text}
+              onMouseEnter={this.handleMouse}
               data-state={item.context[0].short_code.slice(3)}
             >
               {item.place_name}

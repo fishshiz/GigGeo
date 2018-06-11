@@ -127,9 +127,7 @@ export default class Map extends React.Component {
     const ordered = this.props.artistSearch
       ? this.orderByDate()
       : this.props.venues;
-    console.log(ordered);
     ordered.forEach(place => {
-      console.log(place);
       let color = that.props.artistSearch
         ? that.generateColor(rainbow, place, ordered)
         : "c74129";
