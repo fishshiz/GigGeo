@@ -9,6 +9,7 @@ const venueReducer = (state = [], action) => {
             if (action.venues._embedded) {
                 return action.venues._embedded.events;
             } else {
+                console.log(action);
                 return state;
             }
         default:

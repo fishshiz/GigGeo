@@ -5,6 +5,7 @@ import date from "./date_reducer";
 import search from "./search_reducer";
 import artist_search from "./artist_search_reducer";
 import highlighted from "./selected_marker_reducer";
+import errors from "./errors_reducer";
 
 export default combineReducers({
     venues,
@@ -12,5 +13,6 @@ export default combineReducers({
     date,
     search,
     artist_search,
-    highlighted
+    highlighted,
+    errors
 });

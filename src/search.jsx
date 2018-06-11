@@ -63,6 +63,7 @@ export default class Search extends Component {
     let that = this;
     return e => {
       that.props.geocoder(e.target.value);
+      that.props.clearResults();
       that.props.searchText(e.target.value);
       that.setState({
         [property]: e.target.value
@@ -73,7 +74,9 @@ export default class Search extends Component {
   handleSubmit(e) {
     e.preventDefault();
     let d = moment(this.state.date);
-    d = moment(d).add(1, "days").format("YYYY-MM-DD");
+    d = moment(d)
+      .add(1, "days")
+      .format("YYYY-MM-DD");
     let tomorrow = moment(d)
       .add(1, "days")
       .format("YYYY-MM-DD");
@@ -83,7 +86,7 @@ export default class Search extends Component {
       this.props.searchCities(this.state.query, d, tomorrow);
       this.props.clearResults();
     }
-    this.props.searchText("");
+    // this.props.searchText("");
   }
 
   render() {
@@ -99,7 +102,7 @@ export default class Search extends Component {
         />
       </div>
     );
-    let placeholder, dropdown, guide;
+    let placeholder, dropdown, guide, text;
     if (!artistSearch) {
       placeholder = " city";
       dropdown = <DropdownContainer />;
@@ -144,18 +147,33 @@ export default class Search extends Component {
       );
     }
 
+    if (this.props.error) {
+      text = (
+        <input
+          onChange={this.handleUpdate("query")}
+          value={this.props.text}
+          type="text"
+          placeholder={`Search for a${placeholder}`}
+          className="search__input pulsate"
+        />
+      );
+    } else {
+      text = (
+        <input
+          onChange={this.handleUpdate("query")}
+          value={this.props.text}
+          type="text"
+          placeholder={`Search for a${placeholder}`}
+          className="search__input"
+        />
+      );
+    }
     return (
       <div>
         <div className="search__wrapper">
           <form className="search__form" onSubmit={this.handleSubmit}>
             <div className="search__comp">
-              <input
-                onChange={this.handleUpdate("query")}
-                value={this.props.text}
-                type="text"
-                placeholder={`Search for a${placeholder}`}
-                className="search__input"
-              />
+              {text}
 
               <button
                 className="headerSearch__submit submit sc-ir"

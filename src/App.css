@@ -454,6 +454,10 @@ input:focus {
   border-bottom: 1px dotted #2c3e506d;
 }
 
+.hover-selected {
+  color: #c74129;
+}
+
 .dropdown__item:hover {
   color: #c74129;
 }
@@ -462,18 +466,37 @@ input:focus {
   fill: #3eb1cf;
 }
 
+.pulsate {
+  -webkit-animation: pulsate 2s ease-out;
+  color: rgb(203, 31, 31);
+  -webkit-animation-iteration-count: infinite;
+}
+@-webkit-keyframes pulsate {
+  0% {
+    color: #c74129;
+    opacity: 1;
+  }
+  50% {
+    opacity: rgb(203, 31, 31);
+    opacity: 0.75;
+  }
+  100% {
+    opacity: #c74129;
+    opacity: 1;
+  }
+}
+
 .selected__wrapper {
   position: absolute;
   bottom: 40px;
   min-width: 25%;
   right: 5%;
-  z-index: 5;
+  pointer-events: none;
   background-color: #9cb5bbd9;
   display: flex;
   border: 1px solid #4e6565;
   border-radius: 5px;
 }
-
 
 .selected__venue {
   color: #2c3e50;
@@ -595,13 +618,12 @@ p {
 }
 
 .popup__buy {
-  color:#ecf0f1;
+  color: #ecf0f1;
   font-weight: 600;
   background-color: #3eb1cf;
   font-size: 15px;
   text-decoration: none;
   text-align: center;
-
 }
 
 .popup__buy:hover {
