@@ -91,7 +91,6 @@ export default class Search extends Component {
       this.props.searchCities(this.state.query, d, tomorrow);
       this.props.clearResults();
     }
-    // this.props.searchText("");
   }
 
   render() {
@@ -156,6 +155,7 @@ export default class Search extends Component {
       text = (
         <input
           onChange={this.handleUpdate("query")}
+          onClick={this.handleFocus}
           value={this.props.text}
           type="text"
           onFocus={this.handleFocus}
@@ -167,6 +167,7 @@ export default class Search extends Component {
       text = (
         <input
           onChange={this.handleUpdate("query")}
+          onClick={this.handleFocus}
           value={this.props.text}
           type="text"
           placeholder={`Search for a${placeholder}`}
