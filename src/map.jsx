@@ -88,24 +88,23 @@ export default class Map extends React.Component {
     let venues = this.props.venues;
     let output = [venues[0]];
     for (let i = 1; i < venues.length; i++) {
-      let newDate = venues[i].dates.start.dateTime
-        ? venues[i].dates.start.dateTime
-        : venues[i].dates.start.localDate;
+      let newDate = venues[i].dates.start.localDate;
 
-      let comparisonDate = output[0].dates.start.dateTime
-        ? output[0].dates.start.dateTime
-        : output[0].dates.start.localDate;
+      let comparisonDate = output[0].dates.start.localDate;
       if (new Date(newDate) < new Date(comparisonDate)) {
         output.unshift(venues[i]);
-      } else if (new Date(newDate) > new Date(comparisonDate)) {
+      } else if (
+        new Date(newDate) >
+        new Date(output[output.length - 1].dates.start.localDate)
+      ) {
         output.push(venues[i]);
       } else {
         for (let j = 0; j < output.length; j++) {
           if (
-            new Date(output[j].dates.start.dateTime) <=
-              new Date(venues[i].dates.start.dateTime) &&
-            new Date(output[j + 1].dates.start.dateTime) >
-              new Date(venues[i].dates.start.dateTime)
+            new Date(output[j].dates.start.localDate) <=
+              new Date(venues[i].dates.start.localDate) &&
+            new Date(output[j + 1].dates.start.localDate) >
+              new Date(venues[i].dates.start.localDate)
           ) {
             output = output
               .slice(0, j + 1)
