@@ -68,7 +68,6 @@ export default class Search extends Component {
     let that = this;
     return e => {
       that.props.geocoder(e.target.value);
-      that.props.clearResults();
       that.props.searchText(e.target.value);
       that.setState({
         [property]: e.target.value
@@ -78,7 +77,7 @@ export default class Search extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let d = moment(this.state.date);
+    let d = moment(this.state.date).format("YYYY-MM-DD");
     d = moment(d)
       .add(1, "days")
       .format("YYYY-MM-DD");

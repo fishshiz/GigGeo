@@ -91,10 +91,10 @@ export default class Map extends React.Component {
       let newDate = venues[i].dates.start.localDate;
 
       let comparisonDate = output[0].dates.start.localDate;
-      if (new Date(newDate) < new Date(comparisonDate)) {
+      if (new Date(newDate) <= new Date(comparisonDate)) {
         output.unshift(venues[i]);
       } else if (
-        new Date(newDate) >
+        new Date(newDate) >=
         new Date(output[output.length - 1].dates.start.localDate)
       ) {
         output.push(venues[i]);
