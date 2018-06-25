@@ -259,6 +259,20 @@ i {
     transform: translateX(-60%);
   }
 }
+
+@-webkit-keyframes moveUp {
+  100% {
+    -webkit-transform: translateY(-35%);
+    transform: translateY(-35%);
+  }
+}
+
+@keyframes moveUp {
+  100% {
+    -webkit-transform: translateY(-35%);
+    transform: translateY(-35%);
+  }
+}
 @-webkit-keyframes moveBack {
   0% {
     -webkit-transform: translateX(-60%);
@@ -280,6 +294,29 @@ i {
   100% {
     -webkit-transform: translateX(0%);
     transform: translateX(0%);
+  }
+}
+@-webkit-keyframes moveDown {
+  0% {
+    -webkit-transform: translateY(-35%);
+    transform: translateY(-35%);
+  }
+
+  100% {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    -webkit-transform: translateY(-35%);
+    transform: translateY(-35%);
+  }
+
+  100% {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
   }
 }
 
@@ -630,4 +667,94 @@ p {
 
 .popup__buy:hover {
   background-color: #c74129;
+}
+
+@media only screen and (min-width: 260px) {
+  .search__wrapper {
+    position: unset;
+    width: 100%;
+    display: grid;
+  }
+
+  .search__form {
+    width: 100%;
+  }
+
+  .toggle__calendar {
+    flex-direction: column;
+  }
+
+  .flatpickr-input {
+    width: 100%;
+  }
+
+  .toggle {
+    width: 100%;
+    border: none;
+    border-bottom: 5px solid #95a5a6;
+    border-top: 5px solid #95a5a6;
+  }
+
+  .dropdown__wrapper {
+    top: 119px;
+    width: 100%;
+  }
+
+  .moveIn {
+    -webkit-animation: moveUp 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation: moveUp 1s;
+    animation-fill-mode: forwards;
+  }
+  .moveBack {
+    -webkit-animation: moveDown 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation: moveDown 1s;
+    animation-fill-mode: forwards;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .search__wrapper {
+    position: absolute;
+    width: 60%;
+    display: flex;
+  }
+
+  .search__form {
+    width: 660px;
+  }
+
+  .toggle__calendar {
+    flex-direction: row;
+  }
+
+  .flatpickr-input {
+    width: unset;
+  }
+
+  .toggle {
+    width: 90px;
+    border: 5px solid #95a5a6;
+    border-right: 7px solid #95a5a6;
+    border-left: 7px solid #95a5a6;
+  }
+
+  .dropdown__wrapper {
+    top: 69%;
+    width: 50%;
+  }
+
+  .moveIn {
+    -webkit-animation: moveIn 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation: moveIn 1s;
+    animation-fill-mode: forwards;
+  }
+  .moveBack {
+    -webkit-animation: moveBack 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation: moveBack 1s;
+    animation-fill-mode: forwards;
+  }
 }
